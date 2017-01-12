@@ -18,12 +18,11 @@ class HargaSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 class ProdukSerializer(serializers.HyperlinkedModelSerializer):
-    harga = HargaSerializer(many=True, read_only=True)
+    harga = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Produk
         fields = '__all__'
-        depth = 1
-
+        
 
 class StockSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
