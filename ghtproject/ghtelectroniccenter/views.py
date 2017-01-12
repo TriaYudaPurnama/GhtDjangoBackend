@@ -30,8 +30,22 @@ class ProdukViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Produk.objects.all()
+    
     serializer_class = ProdukSerializer
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        queryset = Produk.objects.all()
+        jenisProduk = self.request.query_params.get('jenis_produk',None)
+        if jenisProduk is not None:
+            queryset = queryset.filter(jenis_produk=jenisProduk)
+        kodeProduk = self.request.query_params.get('kode_produk',None)
+        if kodeProduk is not None:
+            queryset = queryset.filter(kode_produk=kodeProduk)
+        return queryset
+        
 
 class WarnaViewSet(viewsets.ModelViewSet):
     """
