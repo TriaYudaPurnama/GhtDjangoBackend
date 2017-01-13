@@ -19,6 +19,22 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    
+class LoginViewSet(APIView):
+    def get(self, request, format=None):
+        queryset = Customer.objects.all()
+        email = self.request.query_params.get('email',None)
+        password = self.request.query_params.get('password',None)
+        queryset = Customer.objects.filter(email = email).filter(password = password)
+		#queryset = Pelanggan.objects.filter(password = field_pass) kalo OR
+		#serializer_class = LoginSerializer()
+		#return Response({'received data': request.data}, status=status.HTTP_201_CREATED)
+        c = queryset.count()
+        if c > 0:
+            return HttpResponse(serializer_class.serialize(queryset))
+        else:
+            return Response({'username dan password salah'})
+		#return Response({'username': username})
 class HargaViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.

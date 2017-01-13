@@ -8,7 +8,7 @@ class Customer(models.Model):
     password = models.CharField(max_length = 50)
     def __str__(self):
         return self.email
-b
+
 class Produk(models.Model):
     kode_produk = models.CharField(default=0,max_length=8,primary_key=True)
     nama_produk = models.CharField(max_length=100)
