@@ -35,15 +35,19 @@ class StockSerializer(serializers.ModelSerializer):
         model = Stock
         fields = '__all__'
 
-class CartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cart
-        fields = '__all__'
-
 class listCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = listCart
         fields = '__all__'
+
+
+class CartSerializer(serializers.ModelSerializer):
+    barang_pesanan = serializers.StringRelatedField(many=True, read_only=True)
+    class Meta:
+        model = Cart
+        fields = ('waktu_cart','id_customer','barang_pesanan','total_pembelian')
+
+
 class PesananSerializer(serializers.ModelSerializer):
     class Meta :
         model = Pesanan

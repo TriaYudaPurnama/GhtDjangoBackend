@@ -8,7 +8,7 @@ class Customer(models.Model):
     password = models.CharField(max_length = 50)
     def __str__(self):
         return self.email
-
+b
 class Produk(models.Model):
     kode_produk = models.CharField(default=0,max_length=8,primary_key=True)
     nama_produk = models.CharField(max_length=100)
@@ -53,10 +53,13 @@ class Cart(models.Model):
 
 
 class listCart(models.Model):
-    waktu_cart = models.ForeignKey(Cart,on_delete=models.CASCADE)
+    waktu_cart = models.ForeignKey(Cart,on_delete=models.CASCADE,related_name='barang_pesanan')
     id_produk = models.ForeignKey(Produk, on_delete = models.CASCADE)
     jumlah_pesan = models.IntegerField(default=0)
     total_harga_peritem = models.IntegerField(default=0)
+    def __str__(self):
+        return '%s: %s: %s' % (self.id_produk, self.jumlah_pesan,self.total_harga_peritem)
+
 
 class Pesanan(models.Model):
     kode_pesanan = models.CharField(max_length=15,primary_key = True)
