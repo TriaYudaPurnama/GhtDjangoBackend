@@ -1,58 +1,64 @@
 from rest_framework import serializers
-from ghtelectroniccenter.models import Customer,Produk,Warna,Harga,Stock,Cart,listCart,Pesanan,Bank,BuktiTransfer,StatusPengiriman
+from ghtelectroniccenter.models import Customer,Alamat,Produk,Warna,Harga,Stock,Cart,listCart,Pesanan,Bank,BuktiTransfer,StatusPengiriman
 
-class CustomerSerializer(serializers.HyperlinkedModelSerializer):
+class AlamatSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customer
+        model = Alamat
         fields = '__all__'
 
+class CustomerSerializer(serializers.ModelSerializer):
+    alamat = serializers.StringRelatedField(many=True, read_only=True)
+    class Meta:
+        model = Customer
+        fields = ('email','password','alamat')
 
-class WarnaSerializer(serializers.HyperlinkedModelSerializer):
+
+class WarnaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Warna
         fields = '__all__'
 
-class HargaSerializer(serializers.HyperlinkedModelSerializer):
+
+class HargaSerializer(serializers.ModelSerializer):
     class Meta :
         model = Harga
         fields = '__all__'
 
-class ProdukSerializer(serializers.HyperlinkedModelSerializer):
-    harga = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+class ProdukSerializer(serializers.ModelSerializer):
+    harga = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = Produk
-        fields = '__all__'
-        
+        fields = ('kode_produk','nama_produk','jenis_produk','spesifikasi1','spesifikasi2','spesifikasi3','spesifikasi4','spesifikasi5','harga','deskripsi')
 
-class StockSerializer(serializers.HyperlinkedModelSerializer):
+class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = '__all__'
 
-class CartSerializer(serializers.HyperlinkedModelSerializer):
+class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = '__all__'
 
-class listCartSerializer(serializers.HyperlinkedModelSerializer):
+class listCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = listCart
         fields = '__all__'
-class PesananSerializer(serializers.HyperlinkedModelSerializer):
+class PesananSerializer(serializers.ModelSerializer):
     class Meta :
         model = Pesanan
         fields = '__all__'
-class BankSerializer(serializers.HyperlinkedModelSerializer):
+class BankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bank
         fields = '__all__'
 
-class BuktiTransferSerializer(serializers.HyperlinkedModelSerializer):
+class BuktiTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = BuktiTransfer
         fields = '__all__'
 
-class StatusPengirimanSerializer(serializers.HyperlinkedModelSerializer):
+class StatusPengirimanSerializer(serializers.ModelSerializer):
     class Meta:
         model = StatusPengiriman
         fields = '__all__'

@@ -35,12 +35,16 @@ class Harga(models.Model):
     kode_produk = models.ForeignKey(Produk, on_delete = models.CASCADE,related_name = 'harga' )
     harga = models.IntegerField(default=0)
     keterangan = models.CharField(max_length=200)
+    def __str__(self):
+        return '%s: %s' % (self.tanggal_harga, self.harga)
 
 class Stock(models.Model):
     kode_produk = models.ForeignKey(Produk,on_delete = models.CASCADE)
     kode_warna = models.ForeignKey(Warna, on_delete = models.CASCADE)
     jumlah = models.IntegerField(default=0)
     gambar =  models.ImageField(upload_to = "image/produk")
+    def __str__(self):
+        return '%s: %s: %s' % (self.kode_produk, self.kode_warna, self.jumlah)
 
 class Cart(models.Model):
     waktu_cart =  models.DateTimeField(default=datetime.datetime.now,primary_key=True)
@@ -61,6 +65,16 @@ class Pesanan(models.Model):
     nama_pemesan = models.CharField(max_length=100)
     no_telp = models.CharField(max_length=100)
     tanggal_pesanan = models.DateTimeField(default=datetime.datetime.now)
+
+class Alamat(models.Model):
+    id_customer = models.ForeignKey(Customer, on_delete = models.CASCADE,related_name = 'alamat')
+    provinsi = models.CharField(max_length=50)
+    kota = models.CharField(max_length=50)
+    kecamatan = models.CharField(max_length=50)
+    jalan = models.CharField(max_length=100)
+    kode_pos = models.CharField(max_length=5)
+    def __str__(self):
+        return '%s: %s: %s: %s' % (self.provinsi, self.kota,self.jalan,self.kode_pos)
 
 class Bank(models.Model):
     kd_bank = models.CharField(max_length=5,primary_key=True)

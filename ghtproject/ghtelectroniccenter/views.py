@@ -8,8 +8,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
-from .models import Customer,Produk,Warna,Harga,Stock,Cart,listCart,Pesanan,Bank,BuktiTransfer,StatusPengiriman
-from .serializers import CustomerSerializer,ProdukSerializer,WarnaSerializer,HargaSerializer,StockSerializer,CartSerializer,listCartSerializer,PesananSerializer,BankSerializer,BuktiTransferSerializer,StatusPengirimanSerializer
+from .models import Customer,Produk,Warna,Harga,Alamat,Stock,Cart,listCart,Pesanan,Bank,BuktiTransfer,StatusPengiriman
+from .serializers import CustomerSerializer,AlamatSerializer,ProdukSerializer,WarnaSerializer,HargaSerializer,StockSerializer,CartSerializer,listCartSerializer,PesananSerializer,BankSerializer,BuktiTransferSerializer,StatusPengirimanSerializer
 # Create your views here.
 
 class CustomerViewSet(viewsets.ModelViewSet):
@@ -26,11 +26,18 @@ class HargaViewSet(viewsets.ModelViewSet):
     queryset = Harga.objects.all()
     serializer_class = HargaSerializer
 
+class AlamatViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Alamat.objects.all()
+    serializer_class = AlamatSerializer
+
 class ProdukViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    
+
     serializer_class = ProdukSerializer
     def get_queryset(self):
         """
@@ -38,14 +45,13 @@ class ProdukViewSet(viewsets.ModelViewSet):
         for the currently authenticated user.
         """
         queryset = Produk.objects.all()
-        jenisProduk = self.request.query_params.get('jenis_produk',None)
-        if jenisProduk is not None:
-            queryset = queryset.filter(jenis_produk=jenisProduk)
-        kodeProduk = self.request.query_params.get('kode_produk',None)
-        if kodeProduk is not None:
-            queryset = queryset.filter(kode_produk=kodeProduk)
+        jenis_produk = self.request.query_params.get('jenis_produk',None)
+        if jenis_produk is not None:
+            queryset = queryset.filter(jenis_produk=jenis_produk)
+        kode_produk = self.request.query_params.get('kode_produk',None)
+        if kode_produk is not None:
+            queryset = queryset.filter(kode_produk=kode_produk)
         return queryset
-        
 
 class WarnaViewSet(viewsets.ModelViewSet):
     """
