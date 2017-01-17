@@ -36,15 +36,15 @@ class Harga(models.Model):
     harga = models.IntegerField(default=0)
     keterangan = models.CharField(max_length=200)
     def __str__(self):
-        return '%s: %s' % (self.tanggal_harga, self.harga)
+        return 'Tanggal : %s,Harga :  %s' % (self.tanggal_harga, self.harga)
 
 class Stock(models.Model):
-    kode_produk = models.ForeignKey(Produk,on_delete = models.CASCADE)
+    kode_produk = models.ForeignKey(Produk,on_delete = models.CASCADE,related_name = 'stock')
     kode_warna = models.ForeignKey(Warna, on_delete = models.CASCADE)
     jumlah = models.IntegerField(default=0)
     gambar =  models.ImageField(upload_to = "image/produk")
     def __str__(self):
-        return '%s: %s: %s' % (self.kode_produk, self.kode_warna, self.jumlah)
+        return 'Warna : %s,Jumlah :  %s,Gambar :  %s' % (self.kode_warna, self.jumlah, self.gambar )
 
 class Cart(models.Model):
     waktu_cart =  models.DateTimeField(default=datetime.datetime.now,primary_key=True)
@@ -58,7 +58,7 @@ class listCart(models.Model):
     jumlah_pesan = models.IntegerField(default=0)
     total_harga_peritem = models.IntegerField(default=0)
     def __str__(self):
-        return '%s: %s: %s' % (self.id_produk, self.jumlah_pesan,self.total_harga_peritem)
+        return 'Id Produk : %s,Jumlah : %s,Total :  %s' % (self.id_produk, self.jumlah_pesan,self.total_harga_peritem)
 
 
 class Pesanan(models.Model):

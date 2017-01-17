@@ -7,10 +7,10 @@ class AlamatSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CustomerSerializer(serializers.ModelSerializer):
-    alamat = serializers.StringRelatedField(many=True, read_only=True)
+    #alamat = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = Customer
-        fields = ('email','password','alamat')
+        fields = ('email','password')
 
 
 class WarnaSerializer(serializers.ModelSerializer):
@@ -24,16 +24,19 @@ class HargaSerializer(serializers.ModelSerializer):
         model = Harga
         fields = '__all__'
 
-class ProdukSerializer(serializers.ModelSerializer):
-    harga = serializers.StringRelatedField(many=True, read_only=True)
-    class Meta:
-        model = Produk
-        fields = ('kode_produk','nama_produk','jenis_produk','spesifikasi1','spesifikasi2','spesifikasi3','spesifikasi4','spesifikasi5','harga','deskripsi')
-
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = '__all__'
+
+class ProdukSerializer(serializers.ModelSerializer):
+    harga = serializers.StringRelatedField(many=True, read_only=True)
+    stock = serializers.StringRelatedField(many=True, read_only=True)
+    class Meta:
+        model = Produk
+        fields = ('kode_produk','nama_produk','jenis_produk','spesifikasi1','spesifikasi2','spesifikasi3','spesifikasi4','spesifikasi5','harga','deskripsi','stock')
+
+
 
 class listCartSerializer(serializers.ModelSerializer):
     class Meta:
