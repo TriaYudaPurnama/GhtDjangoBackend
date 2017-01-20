@@ -4,7 +4,7 @@ from django.utils import timezone
 # Create your models here.
 
 class Customer(models.Model):
-    email = models.CharField(max_length=100)
+    email = models.CharField(max_length=100,unique=True)
     password = models.CharField(max_length = 50)
     def __str__(self):
         return self.email
@@ -44,7 +44,7 @@ class Stock(models.Model):
     jumlah = models.IntegerField(default=0)
     gambar =  models.ImageField(upload_to = "image/produk")
     def __str__(self):
-        return 'Warna : %s,Jumlah :  %s,Gambar :  %s' % (self.kode_warna, self.jumlah, self.gambar )
+        return '%s' % (self.gambar)
 
 class Cart(models.Model):
     waktu_cart =  models.DateTimeField(default=datetime.datetime.now,primary_key=True)

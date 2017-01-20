@@ -19,7 +19,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    
+
 class LoginViewSet(APIView):
     def get(self, request, format=None):
         queryset = Customer.objects.all()
@@ -42,6 +42,7 @@ class HargaViewSet(viewsets.ModelViewSet):
     queryset = Harga.objects.all()
     serializer_class = HargaSerializer
 
+
 class AlamatViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -55,6 +56,7 @@ class ProdukViewSet(viewsets.ModelViewSet):
     """
 
     serializer_class = ProdukSerializer
+    
     def get_queryset(self):
         """
         This view should return a list of all the purchases
